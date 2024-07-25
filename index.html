@@ -7,10 +7,29 @@
 <link rel="stylesheet" href="./stopwatch-styles.css">
 </head>
 <body>
-<div class="stopwatch">
-  <div id="display">00:00:00</div>
-  <button id="startStopBtn" onclick="startStop()">Start</button>
-  <button id="resetBtn" onclick="reset()">Reset</button>
+<div class="container">
+  <div class="stopwatch">
+    <div id="clock-face">
+      <div id="display">00:00:00.000</div>
+    </div>
+    <div class="buttons">
+      <button id="startStopBtn" onclick="startStop()">Start</button>
+      <button id="resetBtn" onclick="reset()">Reset</button>
+    </div>
+  </div>
+  <div class="record-table">
+    <h2>Stop Times</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody id="timeRecords">
+      </tbody>
+    </table>
+  </div>
 </div>
 <script src="./stopwatch-script.js"></script>
 </body>

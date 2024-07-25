@@ -1,47 +1,53 @@
-let timer; // Timer object
-let timeElapsed = 0; // Time elapsed in milliseconds
-let isRunning = false; // Flag to track if the stopwatch is running
+let startTime;
+let updatedTime;
+let difference;
+let tInterval;
+let running = false;
+let recordCount = 0;
 
 function startStop() {
-  if (isRunning) {
-    // Stop the stopwatch
-    clearInterval(timer);
-    isRunning = false;
-    document.getElementById('startStopBtn').textContent = 'Start';
+  if (!running) {
+    startTime = new Date().getTime();
+    tInterval = setInterval(getShowTime, 1);
+    document.getElementById("startStopBtn").innerHTML = "Stop";
+    running = true;
   } else {
-    // Start the stopwatch
-    timer = setInterval(updateTime, 1000); // Update time every second (1000 ms)
-    isRunning = true;
-    document.getElementById('startStopBtn').textContent = 'Stop';
+    clearInterval(tInterval);
+    addRecord();
+    document.getElementById("startStopBtn").innerHTML = "Start";
+    running = false;
   }
 }
 
 function reset() {
-  // Stop the stopwatch (if running)
-  clearInterval(timer);
-  isRunning = false;
-  document.getElementById('startStopBtn').textContent = 'Start';
-
-  // Reset time elapsed
-  timeElapsed = 0;
-  updateTime();
+  clearInterval(tInterval);
+  document.getElementById("display").innerHTML = "00:00:00.000";
+  document.getElementById("startStopBtn").innerHTML = "Start";
+  running = false;
+  recordCount = 0;
+  document.getElementById("timeRecords").innerHTML = "";
 }
 
-function updateTime() {
-  timeElapsed += 1000; // Increment time by 1 second (1000 ms)
+function getShowTime() {
+  updatedTime = new Date().getTime();
+  difference = updatedTime - startTime;
   
-  // Calculate hours, minutes, and seconds
-  let hours = Math.floor(timeElapsed / (1000 * 60 * 60));
-  let minutes = Math.floor((timeElapsed % (1000 * 60 * 60)) / (1000 * 60));
-  let seconds = Math.floor((timeElapsed % (1000 * 60)) / 1000);
+  let hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+  let seconds = Math.floor((difference % (1000 * 60)) / 1000);
+  let milliseconds = Math.floor((difference % 1000));
 
-  // Format time as HH:MM:SS
-  let displayTime = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+  hours = (hours < 10) ? "0" + hours : hours;
+  minutes = (minutes < 10) ? "0" + minutes : minutes;
+  seconds = (seconds < 10) ? "0" + seconds : seconds;
+  milliseconds = (milliseconds < 100) ? "0" + milliseconds : milliseconds;
 
-  // Update the display
-  document.getElementById('display').textContent = displayTime;
+  document.getElementById("display").innerHTML = hours + ":" + minutes + ":" + seconds + "." + milliseconds;
 }
 
-function formatTime(time) {
-  return time < 10 ? `0${time}` : time; // Add leading zero if time is less than 10
+function addRecord() {
+  recordCount++;
+  const timeRecord = document.createElement("tr");
+  timeRecord.innerHTML = `<td>${recordCount}</td><td>${document.getElementById("display").innerHTML}</td>`;
+  document.getElementById("timeRecords").appendChild(timeRecord);
 }

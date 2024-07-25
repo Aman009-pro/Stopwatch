@@ -1,24 +1,78 @@
 body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
-  font-family: Arial, sans-serif;
 }
 
-.stopwatch {
+.container {
   text-align: center;
 }
 
-#display {
-  font-size: 3rem;
+.stopwatch {
+  background: #fff;
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
 
+#clock-face {
+  border: 5px solid #333;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+}
+
+#display {
+  font-size: 2em;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
 button {
-  font-size: 1rem;
+  background: #333;
+  color: #fff;
+  border: none;
   padding: 10px 20px;
-  margin: 0 10px;
+  margin: 5px;
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 1em;
+}
+
+button:hover {
+  background: #555;
+}
+
+.record-table {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
 }
